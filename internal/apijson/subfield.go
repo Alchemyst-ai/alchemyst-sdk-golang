@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/respjson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/respjson"
 	"reflect"
 )
 

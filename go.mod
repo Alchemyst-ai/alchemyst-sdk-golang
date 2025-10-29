@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/alchemyst-ai-sdk-go
+module github.com/Alchemyst-ai/alchemyst-sdk-golang
 
 go 1.22
 

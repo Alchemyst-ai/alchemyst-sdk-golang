@@ -2,8 +2,8 @@ package apijson_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/apijson"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/respjson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apijson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/respjson"
 	"testing"
 )
 

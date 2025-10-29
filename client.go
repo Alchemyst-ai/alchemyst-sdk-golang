@@ -8,8 +8,8 @@ import (
 	"os"
 	"slices"
 
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/requestconfig"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/option"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/requestconfig"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 )
 
 // Client creates a struct with services and top level methods that help with
