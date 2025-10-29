@@ -2,7 +2,7 @@ package paramutil
 
 import (
 	"fmt"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/param"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
 	"reflect"
 )
 

@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/apierror"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/apiform"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/apiquery"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apierror"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apiform"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

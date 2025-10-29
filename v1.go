@@ -3,7 +3,7 @@
 package alchemystaisdk
 
 import (
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/option"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 )
 
 // V1Service contains methods and other services that help with interacting with

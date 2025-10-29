@@ -7,11 +7,11 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/apijson"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/requestconfig"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/option"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/param"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/respjson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apijson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/requestconfig"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/respjson"
 )
 
 // V1OrgContextService contains methods and other services that help with

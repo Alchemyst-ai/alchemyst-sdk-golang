@@ -2,7 +2,7 @@ package param
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/encoding/json/sentinel"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/encoding/json/sentinel"
 	"reflect"
 )
 

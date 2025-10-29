@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/apijson"
-	rj "github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/respjson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apijson"
+	rj "github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/respjson"
 	"reflect"
 	"testing"
 )

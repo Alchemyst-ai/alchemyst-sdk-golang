@@ -3,8 +3,8 @@
 package alchemystaisdk
 
 import (
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/apierror"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/param"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apierror"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
 )
 
 // aliased to make [param.APIUnion] private when embedding

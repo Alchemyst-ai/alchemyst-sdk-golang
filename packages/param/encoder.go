@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	shimjson "github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/encoding/json"
+	shimjson "github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/encoding/json"
 
 	"github.com/tidwall/sjson"
 )

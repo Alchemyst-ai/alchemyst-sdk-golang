@@ -8,9 +8,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/testutil"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/option"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/testutil"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 )
 
 func TestV1ContextViewGet(t *testing.T) {
