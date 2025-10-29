@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package alchemystaisdk
+package alchemystai
 
 import (
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/option"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 )
 
 // V1OrgService contains methods and other services that help with interacting with

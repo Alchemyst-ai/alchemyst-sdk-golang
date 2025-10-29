@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/encoding/json/sentinel"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/param"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/encoding/json/sentinel"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
 	"reflect"
 	"slices"
 	"testing"

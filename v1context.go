@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package alchemystaisdk
+package alchemystai
 
 import (
 	"context"
@@ -8,11 +8,11 @@ import (
 	"slices"
 	"time"
 
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/apijson"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/requestconfig"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/option"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/param"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/respjson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apijson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/requestconfig"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/respjson"
 )
 
 // V1ContextService contains methods and other services that help with interacting

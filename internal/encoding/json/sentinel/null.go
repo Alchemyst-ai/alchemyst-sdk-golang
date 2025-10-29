@@ -1,7 +1,7 @@
 package sentinel
 
 import (
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/internal/encoding/json/shims"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/encoding/json/shims"
 	"reflect"
 	"sync"
 )

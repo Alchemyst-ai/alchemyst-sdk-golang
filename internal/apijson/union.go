@@ -2,7 +2,7 @@ package apijson
 
 import (
 	"errors"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/param"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
 	"reflect"
 
 	"github.com/tidwall/gjson"

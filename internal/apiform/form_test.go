@@ -2,7 +2,7 @@ package apiform
 
 import (
 	"bytes"
-	"github.com/stainless-sdks/alchemyst-ai-sdk-go/packages/param"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
 	"io"
 	"mime/multipart"
 	"strings"
