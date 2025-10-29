@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package alchemystaisdk_test
+package alchemystai_test
 
 import (
 	"context"
@@ -22,19 +22,19 @@ func TestV1ContextDeleteWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.V1.Context.Delete(context.TODO(), alchemystaisdk.V1ContextDeleteParams{
-		ByDoc:          alchemystaisdk.Bool(true),
-		ByID:           alchemystaisdk.Bool(true),
-		OrganizationID: alchemystaisdk.String("organization_id"),
-		Source:         alchemystaisdk.String("source"),
-		UserID:         alchemystaisdk.String("user_id"),
+	_, err := client.V1.Context.Delete(context.TODO(), alchemystai.V1ContextDeleteParams{
+		ByDoc:          alchemystai.Bool(true),
+		ByID:           alchemystai.Bool(true),
+		OrganizationID: alchemystai.String("organization_id"),
+		Source:         alchemystai.String("source"),
+		UserID:         alchemystai.String("user_id"),
 	})
 	if err != nil {
-		var apierr *alchemystaisdk.Error
+		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -51,27 +51,27 @@ func TestV1ContextAddWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.V1.Context.Add(context.TODO(), alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("content"),
+	_, err := client.V1.Context.Add(context.TODO(), alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("content"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("fileName"),
-			FileSize:     alchemystaisdk.Float(0),
-			FileType:     alchemystaisdk.String("fileType"),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("fileName"),
+			FileSize:     alchemystai.Float(0),
+			FileType:     alchemystai.String("fileType"),
 			GroupName:    []string{"string"},
-			LastModified: alchemystaisdk.String("lastModified"),
+			LastModified: alchemystai.String("lastModified"),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("source"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("source"),
 	})
 	if err != nil {
-		var apierr *alchemystaisdk.Error
+		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -88,20 +88,20 @@ func TestV1ContextSearchWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.V1.Context.Search(context.TODO(), alchemystaisdk.V1ContextSearchParams{
+	_, err := client.V1.Context.Search(context.TODO(), alchemystai.V1ContextSearchParams{
 		MinimumSimilarityThreshold: 0.5,
 		Query:                      "search query for user preferences",
 		SimilarityThreshold:        0.8,
 		Metadata:                   map[string]interface{}{},
-		Scope:                      alchemystaisdk.V1ContextSearchParamsScopeInternal,
-		UserID:                     alchemystaisdk.String("user123"),
+		Scope:                      alchemystai.V1ContextSearchParamsScopeInternal,
+		UserID:                     alchemystai.String("user123"),
 	})
 	if err != nil {
-		var apierr *alchemystaisdk.Error
+		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

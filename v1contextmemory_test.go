@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package alchemystaisdk_test
+package alchemystai_test
 
 import (
 	"context"
@@ -22,17 +22,17 @@ func TestV1ContextMemoryDeleteWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.V1.Context.Memory.Delete(context.TODO(), alchemystaisdk.V1ContextMemoryDeleteParams{
-		MemoryID:       alchemystaisdk.String("memoryId"),
-		OrganizationID: alchemystaisdk.String("organization_id"),
-		UserID:         alchemystaisdk.String("user_id"),
+	err := client.V1.Context.Memory.Delete(context.TODO(), alchemystai.V1ContextMemoryDeleteParams{
+		MemoryID:       alchemystai.String("memoryId"),
+		OrganizationID: alchemystai.String("organization_id"),
+		UserID:         alchemystai.String("user_id"),
 	})
 	if err != nil {
-		var apierr *alchemystaisdk.Error
+		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}
@@ -49,18 +49,18 @@ func TestV1ContextMemoryAddWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.V1.Context.Memory.Add(context.TODO(), alchemystaisdk.V1ContextMemoryAddParams{
-		Contents: []alchemystaisdk.V1ContextMemoryAddParamsContent{{
-			Content: alchemystaisdk.String("content"),
+	err := client.V1.Context.Memory.Add(context.TODO(), alchemystai.V1ContextMemoryAddParams{
+		Contents: []alchemystai.V1ContextMemoryAddParamsContent{{
+			Content: alchemystai.String("content"),
 		}},
-		MemoryID: alchemystaisdk.String("memoryId"),
+		MemoryID: alchemystai.String("memoryId"),
 	})
 	if err != nil {
-		var apierr *alchemystaisdk.Error
+		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

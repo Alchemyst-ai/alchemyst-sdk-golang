@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package alchemystaisdk_test
+package alchemystai_test
 
 import (
 	"context"
@@ -22,15 +22,15 @@ func TestV1OrgContextView(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.V1.Org.Context.View(context.TODO(), alchemystaisdk.V1OrgContextViewParams{
+	_, err := client.V1.Org.Context.View(context.TODO(), alchemystai.V1OrgContextViewParams{
 		UserIDs: []string{"string"},
 	})
 	if err != nil {
-		var apierr *alchemystaisdk.Error
+		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {
 			t.Log(string(apierr.DumpRequest(true)))
 		}

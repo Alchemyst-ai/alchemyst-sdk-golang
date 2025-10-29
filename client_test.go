@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package alchemystaisdk_test
+package alchemystai_test
 
 import (
 	"context"
@@ -25,7 +25,7 @@ func (t *closureTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 
 func TestUserAgentHeader(t *testing.T) {
 	var userAgent string
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithAPIKey("My API Key"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -38,19 +38,19 @@ func TestUserAgentHeader(t *testing.T) {
 			},
 		}),
 	)
-	client.V1.Context.Add(context.Background(), alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("The content of the document"),
+	client.V1.Context.Add(context.Background(), alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("The content of the document"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("notes.txt"),
-			FileType:     alchemystaisdk.String("text/plain"),
-			LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-			FileSize:     alchemystaisdk.Float(1024),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("notes.txt"),
+			FileType:     alchemystai.String("text/plain"),
+			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("platform.api.context.add"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if userAgent != fmt.Sprintf("AlchemystAI/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
@@ -59,7 +59,7 @@ func TestUserAgentHeader(t *testing.T) {
 
 func TestRetryAfter(t *testing.T) {
 	retryCountHeaders := make([]string, 0)
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithAPIKey("My API Key"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -75,19 +75,19 @@ func TestRetryAfter(t *testing.T) {
 			},
 		}),
 	)
-	_, err := client.V1.Context.Add(context.Background(), alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("The content of the document"),
+	_, err := client.V1.Context.Add(context.Background(), alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("The content of the document"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("notes.txt"),
-			FileType:     alchemystaisdk.String("text/plain"),
-			LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-			FileSize:     alchemystaisdk.Float(1024),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("notes.txt"),
+			FileType:     alchemystai.String("text/plain"),
+			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("platform.api.context.add"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -106,7 +106,7 @@ func TestRetryAfter(t *testing.T) {
 
 func TestDeleteRetryCountHeader(t *testing.T) {
 	retryCountHeaders := make([]string, 0)
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithAPIKey("My API Key"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -123,19 +123,19 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		}),
 		option.WithHeaderDel("X-Stainless-Retry-Count"),
 	)
-	_, err := client.V1.Context.Add(context.Background(), alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("The content of the document"),
+	_, err := client.V1.Context.Add(context.Background(), alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("The content of the document"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("notes.txt"),
-			FileType:     alchemystaisdk.String("text/plain"),
-			LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-			FileSize:     alchemystaisdk.Float(1024),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("notes.txt"),
+			FileType:     alchemystai.String("text/plain"),
+			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("platform.api.context.add"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -149,7 +149,7 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 
 func TestOverwriteRetryCountHeader(t *testing.T) {
 	retryCountHeaders := make([]string, 0)
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithAPIKey("My API Key"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -166,19 +166,19 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		}),
 		option.WithHeader("X-Stainless-Retry-Count", "42"),
 	)
-	_, err := client.V1.Context.Add(context.Background(), alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("The content of the document"),
+	_, err := client.V1.Context.Add(context.Background(), alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("The content of the document"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("notes.txt"),
-			FileType:     alchemystaisdk.String("text/plain"),
-			LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-			FileSize:     alchemystaisdk.Float(1024),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("notes.txt"),
+			FileType:     alchemystai.String("text/plain"),
+			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("platform.api.context.add"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -192,7 +192,7 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 
 func TestRetryAfterMs(t *testing.T) {
 	attempts := 0
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithAPIKey("My API Key"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -208,19 +208,19 @@ func TestRetryAfterMs(t *testing.T) {
 			},
 		}),
 	)
-	_, err := client.V1.Context.Add(context.Background(), alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("The content of the document"),
+	_, err := client.V1.Context.Add(context.Background(), alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("The content of the document"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("notes.txt"),
-			FileType:     alchemystaisdk.String("text/plain"),
-			LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-			FileSize:     alchemystaisdk.Float(1024),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("notes.txt"),
+			FileType:     alchemystai.String("text/plain"),
+			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("platform.api.context.add"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -231,7 +231,7 @@ func TestRetryAfterMs(t *testing.T) {
 }
 
 func TestContextCancel(t *testing.T) {
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithAPIKey("My API Key"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -244,19 +244,19 @@ func TestContextCancel(t *testing.T) {
 	)
 	cancelCtx, cancel := context.WithCancel(context.Background())
 	cancel()
-	_, err := client.V1.Context.Add(cancelCtx, alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("The content of the document"),
+	_, err := client.V1.Context.Add(cancelCtx, alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("The content of the document"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("notes.txt"),
-			FileType:     alchemystaisdk.String("text/plain"),
-			LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-			FileSize:     alchemystaisdk.Float(1024),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("notes.txt"),
+			FileType:     alchemystai.String("text/plain"),
+			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("platform.api.context.add"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -264,7 +264,7 @@ func TestContextCancel(t *testing.T) {
 }
 
 func TestContextCancelDelay(t *testing.T) {
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithAPIKey("My API Key"),
 		option.WithHTTPClient(&http.Client{
 			Transport: &closureTransport{
@@ -277,19 +277,19 @@ func TestContextCancelDelay(t *testing.T) {
 	)
 	cancelCtx, cancel := context.WithTimeout(context.Background(), 2*time.Millisecond)
 	defer cancel()
-	_, err := client.V1.Context.Add(cancelCtx, alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("The content of the document"),
+	_, err := client.V1.Context.Add(cancelCtx, alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("The content of the document"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("notes.txt"),
-			FileType:     alchemystaisdk.String("text/plain"),
-			LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-			FileSize:     alchemystaisdk.Float(1024),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("notes.txt"),
+			FileType:     alchemystai.String("text/plain"),
+			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("platform.api.context.add"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("expected there to be a cancel error")
@@ -305,7 +305,7 @@ func TestContextDeadline(t *testing.T) {
 	defer cancel()
 
 	go func() {
-		client := alchemystaisdk.NewClient(
+		client := alchemystai.NewClient(
 			option.WithAPIKey("My API Key"),
 			option.WithHTTPClient(&http.Client{
 				Transport: &closureTransport{
@@ -316,19 +316,19 @@ func TestContextDeadline(t *testing.T) {
 				},
 			}),
 		)
-		_, err := client.V1.Context.Add(deadlineCtx, alchemystaisdk.V1ContextAddParams{
-			ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-			Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-				Content: alchemystaisdk.String("The content of the document"),
+		_, err := client.V1.Context.Add(deadlineCtx, alchemystai.V1ContextAddParams{
+			ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+			Documents: []alchemystai.V1ContextAddParamsDocument{{
+				Content: alchemystai.String("The content of the document"),
 			}},
-			Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-				FileName:     alchemystaisdk.String("notes.txt"),
-				FileType:     alchemystaisdk.String("text/plain"),
-				LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-				FileSize:     alchemystaisdk.Float(1024),
+			Metadata: alchemystai.V1ContextAddParamsMetadata{
+				FileName:     alchemystai.String("notes.txt"),
+				FileType:     alchemystai.String("text/plain"),
+				LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+				FileSize:     alchemystai.Float(1024),
 			},
-			Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-			Source: alchemystaisdk.String("platform.api.context.add"),
+			Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+			Source: alchemystai.String("platform.api.context.add"),
 		})
 		if err == nil {
 			t.Error("expected there to be a deadline error")
