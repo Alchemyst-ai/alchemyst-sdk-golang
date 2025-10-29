@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-package alchemystaisdk_test
+package alchemystai_test
 
 import (
 	"context"
@@ -20,23 +20,23 @@ func TestUsage(t *testing.T) {
 	if !testutil.CheckTestServer(t, baseURL) {
 		return
 	}
-	client := alchemystaisdk.NewClient(
+	client := alchemystai.NewClient(
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	response, err := client.V1.Context.Add(context.TODO(), alchemystaisdk.V1ContextAddParams{
-		ContextType: alchemystaisdk.V1ContextAddParamsContextTypeResource,
-		Documents: []alchemystaisdk.V1ContextAddParamsDocument{{
-			Content: alchemystaisdk.String("The content of the document"),
+	response, err := client.V1.Context.Add(context.TODO(), alchemystai.V1ContextAddParams{
+		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
+		Documents: []alchemystai.V1ContextAddParamsDocument{{
+			Content: alchemystai.String("The content of the document"),
 		}},
-		Metadata: alchemystaisdk.V1ContextAddParamsMetadata{
-			FileName:     alchemystaisdk.String("notes.txt"),
-			FileType:     alchemystaisdk.String("text/plain"),
-			LastModified: alchemystaisdk.String("2025-10-01T18:42:40.419Z"),
-			FileSize:     alchemystaisdk.Float(1024),
+		Metadata: alchemystai.V1ContextAddParamsMetadata{
+			FileName:     alchemystai.String("notes.txt"),
+			FileType:     alchemystai.String("text/plain"),
+			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
+			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystaisdk.V1ContextAddParamsScopeInternal,
-		Source: alchemystaisdk.String("platform.api.context.add"),
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())

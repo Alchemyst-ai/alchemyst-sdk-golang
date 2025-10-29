@@ -1,4 +1,4 @@
-package alchemystaisdk
+package alchemystai
 
 import (
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
