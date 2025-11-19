@@ -35,7 +35,7 @@ func NewV1ContextMemoryService(opts ...option.RequestOption) (r V1ContextMemoryS
 // This endpoint updates memory context data.
 func (r *V1ContextMemoryService) Update(ctx context.Context, body V1ContextMemoryUpdateParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "api/v1/context/memory/update"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
 	return
@@ -44,7 +44,7 @@ func (r *V1ContextMemoryService) Update(ctx context.Context, body V1ContextMemor
 // Deletes memory context data based on provided parameters
 func (r *V1ContextMemoryService) Delete(ctx context.Context, body V1ContextMemoryDeleteParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "api/v1/context/memory/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
 	return
@@ -53,7 +53,7 @@ func (r *V1ContextMemoryService) Delete(ctx context.Context, body V1ContextMemor
 // This endpoint adds memory context data, fetching chat history if needed.
 func (r *V1ContextMemoryService) Add(ctx context.Context, body V1ContextMemoryAddParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "api/v1/context/memory/add"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
 	return
