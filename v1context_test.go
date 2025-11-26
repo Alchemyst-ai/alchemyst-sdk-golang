@@ -96,7 +96,7 @@ func TestV1ContextSearchWithOptionalParams(t *testing.T) {
 		MinimumSimilarityThreshold: 0.5,
 		Query:                      "search query for user preferences",
 		SimilarityThreshold:        0.8,
-		Metadata:                   map[string]interface{}{},
+		Metadata:                   map[string]any{},
 		Scope:                      alchemystai.V1ContextSearchParamsScopeInternal,
 		UserID:                     alchemystai.String("user123"),
 	})
