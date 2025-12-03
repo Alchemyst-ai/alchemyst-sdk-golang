@@ -32,10 +32,19 @@ func NewV1ContextMemoryService(opts ...option.RequestOption) (r V1ContextMemoryS
 	return
 }
 
+// This endpoint updates memory context data.
+func (r *V1ContextMemoryService) Update(ctx context.Context, body V1ContextMemoryUpdateParams, opts ...option.RequestOption) (err error) {
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
+	path := "api/v1/context/memory/update"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
+	return
+}
+
 // Deletes memory context data based on provided parameters
 func (r *V1ContextMemoryService) Delete(ctx context.Context, body V1ContextMemoryDeleteParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "api/v1/context/memory/delete"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
 	return
@@ -44,10 +53,40 @@ func (r *V1ContextMemoryService) Delete(ctx context.Context, body V1ContextMemor
 // This endpoint adds memory context data, fetching chat history if needed.
 func (r *V1ContextMemoryService) Add(ctx context.Context, body V1ContextMemoryAddParams, opts ...option.RequestOption) (err error) {
 	opts = slices.Concat(r.Options, opts)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := "api/v1/context/memory/add"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, nil, opts...)
 	return
+}
+
+type V1ContextMemoryUpdateParams struct {
+	// The ID of the memory to update
+	MemoryID param.Opt[string] `json:"memoryId,omitzero"`
+	// Array of updated content objects
+	Contents []V1ContextMemoryUpdateParamsContent `json:"contents,omitzero"`
+	paramObj
+}
+
+func (r V1ContextMemoryUpdateParams) MarshalJSON() (data []byte, err error) {
+	type shadow V1ContextMemoryUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *V1ContextMemoryUpdateParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type V1ContextMemoryUpdateParamsContent struct {
+	Content     param.Opt[string] `json:"content,omitzero"`
+	ExtraFields map[string]any    `json:"-"`
+	paramObj
+}
+
+func (r V1ContextMemoryUpdateParamsContent) MarshalJSON() (data []byte, err error) {
+	type shadow V1ContextMemoryUpdateParamsContent
+	return param.MarshalWithExtras(r, (*shadow)(&r), r.ExtraFields)
+}
+func (r *V1ContextMemoryUpdateParamsContent) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type V1ContextMemoryDeleteParams struct {
