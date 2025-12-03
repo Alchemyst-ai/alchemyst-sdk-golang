@@ -27,7 +27,7 @@ func TestV1OrgContextView(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.V1.Org.Context.View(context.TODO(), alchemystai.V1OrgContextViewParams{
-		UserIDs: []string{"string"},
+		UserIDs: []string{"user_123", "user_456"},
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
