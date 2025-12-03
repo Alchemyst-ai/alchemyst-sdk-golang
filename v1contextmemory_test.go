@@ -28,9 +28,11 @@ func TestV1ContextMemoryUpdateWithOptionalParams(t *testing.T) {
 	)
 	err := client.V1.Context.Memory.Update(context.TODO(), alchemystai.V1ContextMemoryUpdateParams{
 		Contents: []alchemystai.V1ContextMemoryUpdateParamsContent{{
-			Content: alchemystai.String("content"),
+			Content: alchemystai.String("Customer asked about pricing for the Scale plan."),
+		}, {
+			Content: alchemystai.String("Updated answer about the Scale plan pricing after discounts."),
 		}},
-		MemoryID: alchemystai.String("memoryId"),
+		MemoryID: alchemystai.String("support-thread-TCK-1234"),
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
@@ -55,7 +57,7 @@ func TestV1ContextMemoryDeleteWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	err := client.V1.Context.Memory.Delete(context.TODO(), alchemystai.V1ContextMemoryDeleteParams{
-		MemoryID:       alchemystai.String("memoryId"),
+		MemoryID:       alchemystai.String("support-thread-TCK-1234"),
 		OrganizationID: alchemystai.String("organization_id"),
 		UserID:         alchemystai.String("user_id"),
 	})
@@ -83,9 +85,11 @@ func TestV1ContextMemoryAddWithOptionalParams(t *testing.T) {
 	)
 	err := client.V1.Context.Memory.Add(context.TODO(), alchemystai.V1ContextMemoryAddParams{
 		Contents: []alchemystai.V1ContextMemoryAddParamsContent{{
-			Content: alchemystai.String("content"),
+			Content: alchemystai.String("Customer asked about pricing for the Scale plan."),
+		}, {
+			Content: alchemystai.String("Explained the Scale plan pricing and shared the pricing page link."),
 		}},
-		MemoryID: alchemystai.String("memoryId"),
+		MemoryID: alchemystai.String("support-thread-TCK-1234"),
 	})
 	if err != nil {
 		var apierr *alchemystai.Error

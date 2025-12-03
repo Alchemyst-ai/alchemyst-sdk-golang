@@ -28,9 +28,9 @@ func TestV1ContextDeleteWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.V1.Context.Delete(context.TODO(), alchemystai.V1ContextDeleteParams{
 		ByDoc:          alchemystai.Bool(true),
-		ByID:           alchemystai.Bool(true),
+		ByID:           alchemystai.Bool(false),
 		OrganizationID: alchemystai.String("organization_id"),
-		Source:         alchemystai.String("source"),
+		Source:         alchemystai.String("support-inbox"),
 		UserID:         alchemystai.String("user_id"),
 	})
 	if err != nil {
@@ -58,17 +58,17 @@ func TestV1ContextAddWithOptionalParams(t *testing.T) {
 	_, err := client.V1.Context.Add(context.TODO(), alchemystai.V1ContextAddParams{
 		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
-			Content: alchemystai.String("content"),
+			Content: alchemystai.String("Customer asked about pricing for the Scale plan."),
 		}},
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
-			FileName:     alchemystai.String("fileName"),
-			FileSize:     alchemystai.Float(0),
-			FileType:     alchemystai.String("fileType"),
-			GroupName:    []string{"string"},
-			LastModified: alchemystai.String("lastModified"),
+			FileName:     alchemystai.String("support_thread_TCK-1234.txt"),
+			FileSize:     alchemystai.Float(2048),
+			FileType:     alchemystai.String("text/plain"),
+			GroupName:    []string{"support", "pricing"},
+			LastModified: alchemystai.String("2025-01-10T12:34:56.000Z"),
 		},
 		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("source"),
+		Source: alchemystai.String("support-inbox"),
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
@@ -94,9 +94,11 @@ func TestV1ContextSearchWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.V1.Context.Search(context.TODO(), alchemystai.V1ContextSearchParams{
 		MinimumSimilarityThreshold: 0.5,
-		Query:                      "search query for user preferences",
+		Query:                      "What did the customer ask about pricing for the Scale plan?",
 		SimilarityThreshold:        0.8,
-		Metadata:                   map[string]any{},
+		QueryMetadata:              alchemystai.V1ContextSearchParamsMetadataTrue,
+		Mode:                       alchemystai.V1ContextSearchParamsModeFast,
+		BodyMetadata:               map[string]any{},
 		Scope:                      alchemystai.V1ContextSearchParamsScopeInternal,
 		UserID:                     alchemystai.String("user123"),
 	})
