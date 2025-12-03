@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (2025-12-03)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** api update ([5e15cc1](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/5e15cc15af03902618881d267373ccac5e40c40f))
+
 ## 0.2.0 (2025-11-26)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/compare/v0.1.0...v0.2.0)
