@@ -5,11 +5,14 @@ package alchemystai
 import (
 	"context"
 	"net/http"
+	"net/url"
 	"slices"
 
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apijson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apiquery"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/requestconfig"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/respjson"
 )
 
@@ -33,10 +36,10 @@ func NewV1ContextViewService(opts ...option.RequestOption) (r V1ContextViewServi
 }
 
 // Gets the context information for the authenticated user
-func (r *V1ContextViewService) Get(ctx context.Context, opts ...option.RequestOption) (res *V1ContextViewGetResponse, err error) {
+func (r *V1ContextViewService) Get(ctx context.Context, query V1ContextViewGetParams, opts ...option.RequestOption) (res *V1ContextViewGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "api/v1/context/view"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
@@ -66,3 +69,19 @@ func (r *V1ContextViewGetResponse) UnmarshalJSON(data []byte) error {
 }
 
 type V1ContextViewDocsResponse = any
+
+type V1ContextViewGetParams struct {
+	// Name of the file to retrieve context for
+	FileName param.Opt[string] `query:"file_name,omitzero" json:"-"`
+	// Magic key for context retrieval
+	MagicKey param.Opt[string] `query:"magic_key,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [V1ContextViewGetParams]'s query parameters as `url.Values`.
+func (r V1ContextViewGetParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
