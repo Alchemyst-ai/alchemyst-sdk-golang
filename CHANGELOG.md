@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.4.0 (2025-12-12)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** api update ([8e26236](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/8e262363f263582f908627f18b7dc671626639c9))
+
+
+### Bug Fixes
+
+* **mcp:** correct code tool API endpoint ([cd2330a](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/cd2330a17509fe76375a3dff0f7de088cf9b24d0))
+* rename param to avoid collision ([4b610e2](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/4b610e2825320df7600e6748a6696ee5583962d3))
+
+
+### Chores
+
+* elide duplicate aliases ([8e2f3cf](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/8e2f3cfc073ba5ef345ce7ee2bb2e4060b01f281))
+* **internal:** codegen related update ([82ebb7d](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/82ebb7dec71fb2f130f2d70e290319f66962a5d2))
+
 ## 0.3.0 (2025-12-03)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/compare/v0.2.0...v0.3.0)
