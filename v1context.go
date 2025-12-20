@@ -234,7 +234,7 @@ type V1ContextSearchParams struct {
 	//     better performance.
 	//
 	// Any of "true", "false".
-	QueryMetadata V1ContextSearchParamsMetadata `query:"metadata,omitzero" json:"-"`
+	Metadata V1ContextSearchParamsMetadata `query:"metadata,omitzero" json:"-"`
 	// Controls the search mode:
 	//
 	// - mode=fast → prioritizes speed over completeness.
@@ -243,7 +243,7 @@ type V1ContextSearchParams struct {
 	// Any of "fast", "standard".
 	Mode V1ContextSearchParamsMode `query:"mode,omitzero" json:"-"`
 	// Additional metadata for the search
-	BodyMetadata any `json:"metadata,omitzero"`
+	BodyMetadata any `json:"body_metadata,omitzero"`
 	// Search scope
 	//
 	// Any of "internal", "external".
