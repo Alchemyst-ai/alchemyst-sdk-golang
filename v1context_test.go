@@ -96,7 +96,7 @@ func TestV1ContextSearchWithOptionalParams(t *testing.T) {
 		MinimumSimilarityThreshold: 0.5,
 		Query:                      "What did the customer ask about pricing for the Scale plan?",
 		SimilarityThreshold:        0.8,
-		QueryMetadata:              alchemystai.V1ContextSearchParamsMetadataTrue,
+		Metadata:                   alchemystai.V1ContextSearchParamsMetadataTrue,
 		Mode:                       alchemystai.V1ContextSearchParamsModeFast,
 		BodyMetadata:               map[string]any{},
 		Scope:                      alchemystai.V1ContextSearchParamsScopeInternal,
