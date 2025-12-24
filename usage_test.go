@@ -24,6 +24,7 @@ func TestUsage(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
+	t.Skip("Prism tests are disabled")
 	response, err := client.V1.Context.Add(context.TODO(), alchemystai.V1ContextAddParams{
 		ContextType: alchemystai.V1ContextAddParamsContextTypeResource,
 		Documents: []alchemystai.V1ContextAddParamsDocument{{

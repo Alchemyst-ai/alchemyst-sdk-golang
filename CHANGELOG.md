@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.5.0 (2025-12-24)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** api update ([626ec60](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/626ec60bb2388b44cb6c815ef184b5bad6b42f3f))
+
+
+### Bug Fixes
+
+* skip usage tests that don't work with Prism ([9c2435b](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/9c2435b69790a64ab64fa3c6552921ce6dfab7d9))
+
+
+### Chores
+
+* add float64 to valid types for RegisterFieldValidator ([0032201](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/commit/0032201e185d198e5b4e8fedbbdedc05829ea2fa))
+
 ## 0.4.0 (2025-12-12)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/Alchemyst-ai/alchemyst-sdk-golang/compare/v0.3.0...v0.4.0)
