@@ -5,9 +5,12 @@ package alchemystai
 import (
 	"context"
 	"net/http"
+	"net/url"
 	"slices"
+	"time"
 
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apijson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apiquery"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/requestconfig"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
@@ -58,6 +61,15 @@ func (r *V1ContextService) Add(ctx context.Context, body V1ContextAddParams, opt
 	return
 }
 
+// This endpoint sends a search request to the context processor to retrieve
+// relevant context data based on the provided query.
+func (r *V1ContextService) Search(ctx context.Context, params V1ContextSearchParams, opts ...option.RequestOption) (res *V1ContextSearchResponse, err error) {
+	opts = slices.Concat(r.Options, opts)
+	path := "api/v1/context/search"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, params, &res, opts...)
+	return
+}
+
 type V1ContextDeleteResponse = any
 
 type V1ContextAddResponse struct {
@@ -77,6 +89,47 @@ type V1ContextAddResponse struct {
 // Returns the unmodified JSON received from the API
 func (r V1ContextAddResponse) RawJSON() string { return r.JSON.raw }
 func (r *V1ContextAddResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type V1ContextSearchResponse struct {
+	Contexts []V1ContextSearchResponseContext `json:"contexts"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Contexts    respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextSearchResponse) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextSearchResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type V1ContextSearchResponseContext struct {
+	Content   string    `json:"content"`
+	CreatedAt time.Time `json:"createdAt" format:"date-time"`
+	// Only included when query parameter metadata=true
+	Metadata  any       `json:"metadata"`
+	Score     float64   `json:"score"`
+	UpdatedAt time.Time `json:"updatedAt" format:"date-time"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Content     respjson.Field
+		CreatedAt   respjson.Field
+		Metadata    respjson.Field
+		Score       respjson.Field
+		UpdatedAt   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextSearchResponseContext) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextSearchResponseContext) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -182,3 +235,80 @@ func (r V1ContextAddParamsMetadata) MarshalJSON() (data []byte, err error) {
 func (r *V1ContextAddParamsMetadata) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
+
+type V1ContextSearchParams struct {
+	// Minimum similarity threshold
+	MinimumSimilarityThreshold float64 `json:"minimum_similarity_threshold,required"`
+	// The search query used to search for context data
+	Query string `json:"query,required"`
+	// Maximum similarity threshold (must be >= minimum_similarity_threshold)
+	SimilarityThreshold float64 `json:"similarity_threshold,required"`
+	// The ID of the user making the request
+	UserID param.Opt[string] `json:"user_id,omitzero"`
+	// Controls whether metadata is included in the response:
+	//
+	//   - metadata=true → metadata will be included in each context item in the
+	//     response.
+	//   - metadata=false (or omitted) → metadata will be excluded from the response for
+	//     better performance.
+	//
+	// Any of .
+	Metadata V1ContextSearchParamsMetadata `query:"metadata,omitzero" json:"-"`
+	// Controls the search mode:
+	//
+	// - mode=fast → prioritizes speed over completeness.
+	// - mode=standard → performs a comprehensive search (default if omitted).
+	//
+	// Any of "fast", "standard".
+	Mode V1ContextSearchParamsMode `query:"mode,omitzero" json:"-"`
+	// Additional metadata for the search
+	BodyMetadata any `json:"body_metadata,omitzero"`
+	// Search scope
+	//
+	// Any of "internal", "external".
+	Scope V1ContextSearchParamsScope `json:"scope,omitzero"`
+	paramObj
+}
+
+func (r V1ContextSearchParams) MarshalJSON() (data []byte, err error) {
+	type shadow V1ContextSearchParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *V1ContextSearchParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// URLQuery serializes [V1ContextSearchParams]'s query parameters as `url.Values`.
+func (r V1ContextSearchParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+// Controls whether metadata is included in the response:
+//
+//   - metadata=true → metadata will be included in each context item in the
+//     response.
+//   - metadata=false (or omitted) → metadata will be excluded from the response for
+//     better performance.
+type V1ContextSearchParamsMetadata string
+
+// Controls the search mode:
+//
+// - mode=fast → prioritizes speed over completeness.
+// - mode=standard → performs a comprehensive search (default if omitted).
+type V1ContextSearchParamsMode string
+
+const (
+	V1ContextSearchParamsModeFast     V1ContextSearchParamsMode = "fast"
+	V1ContextSearchParamsModeStandard V1ContextSearchParamsMode = "standard"
+)
+
+// Search scope
+type V1ContextSearchParamsScope string
+
+const (
+	V1ContextSearchParamsScopeInternal V1ContextSearchParamsScope = "internal"
+	V1ContextSearchParamsScopeExternal V1ContextSearchParamsScope = "external"
+)

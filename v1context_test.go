@@ -78,3 +78,35 @@ func TestV1ContextAddWithOptionalParams(t *testing.T) {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
 }
+
+func TestV1ContextSearchWithOptionalParams(t *testing.T) {
+	t.Skip("Prism tests are disabled")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := alchemystai.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.V1.Context.Search(context.TODO(), alchemystai.V1ContextSearchParams{
+		MinimumSimilarityThreshold: 0.5,
+		Query:                      "What did the customer ask about pricing for the Scale plan?",
+		SimilarityThreshold:        0.8,
+		Metadata:                   alchemystai.V1ContextSearchParamsMetadata(nil),
+		Mode:                       alchemystai.V1ContextSearchParamsModeFast,
+		BodyMetadata:               map[string]any{},
+		Scope:                      alchemystai.V1ContextSearchParamsScopeInternal,
+		UserID:                     alchemystai.String("user123"),
+	})
+	if err != nil {
+		var apierr *alchemystai.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
