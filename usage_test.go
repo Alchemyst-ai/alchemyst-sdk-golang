@@ -30,17 +30,17 @@ func TestUsage(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
-	t.Logf("%+v\n", response)
+	t.Logf("%+v\n", response.ContextID)
 }

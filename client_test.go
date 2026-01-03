@@ -43,14 +43,14 @@ func TestUserAgentHeader(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if userAgent != fmt.Sprintf("AlchemystAI/Go %s", internal.PackageVersion) {
 		t.Errorf("Expected User-Agent to be correct, but got: %#v", userAgent)
@@ -80,14 +80,14 @@ func TestRetryAfter(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -128,14 +128,14 @@ func TestDeleteRetryCountHeader(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -171,14 +171,14 @@ func TestOverwriteRetryCountHeader(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -213,14 +213,14 @@ func TestRetryAfterMs(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -249,14 +249,14 @@ func TestContextCancel(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("Expected there to be a cancel error")
@@ -282,14 +282,14 @@ func TestContextCancelDelay(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err == nil {
 		t.Error("expected there to be a cancel error")
@@ -321,14 +321,14 @@ func TestContextDeadline(t *testing.T) {
 			Documents: []alchemystai.V1ContextAddParamsDocument{{
 				Content: alchemystai.String("The content of the document"),
 			}},
+			Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+			Source: "platform.api.context.add",
 			Metadata: alchemystai.V1ContextAddParamsMetadata{
 				FileName:     alchemystai.String("notes.txt"),
 				FileType:     alchemystai.String("text/plain"),
 				LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 				FileSize:     alchemystai.Float(1024),
 			},
-			Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-			Source: alchemystai.String("platform.api.context.add"),
 		})
 		if err == nil {
 			t.Error("expected there to be a deadline error")
