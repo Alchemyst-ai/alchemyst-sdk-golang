@@ -35,7 +35,7 @@ func NewV1ContextViewService(opts ...option.RequestOption) (r V1ContextViewServi
 	return
 }
 
-// Gets the context information for the authenticated user
+// Gets the context information for the authenticated user.
 func (r *V1ContextViewService) Get(ctx context.Context, query V1ContextViewGetParams, opts ...option.RequestOption) (res *V1ContextViewGetResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "api/v1/context/view"
@@ -43,20 +43,23 @@ func (r *V1ContextViewService) Get(ctx context.Context, query V1ContextViewGetPa
 	return
 }
 
-// Fetches documents view for authenticated user with optional organization context
-func (r *V1ContextViewService) Docs(ctx context.Context, opts ...option.RequestOption) (res *V1ContextViewDocsResponse, err error) {
+// Fetches documents view for authenticated user with optional organization
+// context.
+func (r *V1ContextViewService) Docs(ctx context.Context, query V1ContextViewDocsParams, opts ...option.RequestOption) (res *V1ContextViewDocsResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "api/v1/context/view/docs"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
 type V1ContextViewGetResponse struct {
 	// List of context items
-	Context []any `json:"context"`
+	Contexts []V1ContextViewGetResponseContext `json:"contexts,required"`
+	Success  bool                              `json:"success,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		Context     respjson.Field
+		Contexts    respjson.Field
+		Success     respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -68,7 +71,95 @@ func (r *V1ContextViewGetResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type V1ContextViewDocsResponse = any
+type V1ContextViewGetResponseContext struct {
+	// The content of the context item
+	Content string `json:"content"`
+	// Additional metadata for the context
+	Metadata V1ContextViewGetResponseContextMetadata `json:"metadata"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Content     respjson.Field
+		Metadata    respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextViewGetResponseContext) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextViewGetResponseContext) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// Additional metadata for the context
+type V1ContextViewGetResponseContextMetadata struct {
+	FileName     string   `json:"fileName"`
+	FileSize     float64  `json:"fileSize"`
+	FileType     string   `json:"fileType"`
+	GroupName    []string `json:"groupName"`
+	LastModified string   `json:"lastModified"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		FileName     respjson.Field
+		FileSize     respjson.Field
+		FileType     respjson.Field
+		GroupName    respjson.Field
+		LastModified respjson.Field
+		ExtraFields  map[string]respjson.Field
+		raw          string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextViewGetResponseContextMetadata) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextViewGetResponseContextMetadata) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type V1ContextViewDocsResponse struct {
+	Documents []V1ContextViewDocsResponseDocument `json:"documents,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		Documents   respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextViewDocsResponse) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextViewDocsResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type V1ContextViewDocsResponseDocument struct {
+	// Name of the file
+	FileName string `json:"fileName,required"`
+	// Size of the file in bytes
+	FileSize float64 `json:"fileSize,required"`
+	// Type/MIME of the file
+	FileType string `json:"fileType,required"`
+	// Array of group names to which the file belongs
+	GroupName []string `json:"groupName,required"`
+	// Last modified timestamp (ISO format)
+	LastModified string `json:"lastModified,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		FileName     respjson.Field
+		FileSize     respjson.Field
+		FileType     respjson.Field
+		GroupName    respjson.Field
+		LastModified respjson.Field
+		ExtraFields  map[string]respjson.Field
+		raw          string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextViewDocsResponseDocument) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextViewDocsResponseDocument) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
 
 type V1ContextViewGetParams struct {
 	// Name of the file to retrieve context for
@@ -80,6 +171,21 @@ type V1ContextViewGetParams struct {
 
 // URLQuery serializes [V1ContextViewGetParams]'s query parameters as `url.Values`.
 func (r V1ContextViewGetParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
+
+type V1ContextViewDocsParams struct {
+	// Optional magic key for special access or filtering
+	MagicKey param.Opt[string] `query:"magic_key,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [V1ContextViewDocsParams]'s query parameters as
+// `url.Values`.
+func (r V1ContextViewDocsParams) URLQuery() (v url.Values, err error) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
