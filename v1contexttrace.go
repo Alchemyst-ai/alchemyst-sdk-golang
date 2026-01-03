@@ -7,12 +7,15 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"slices"
 	"time"
 
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apijson"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/apiquery"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/internal/requestconfig"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
+	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/param"
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/packages/respjson"
 )
 
@@ -35,15 +38,15 @@ func NewV1ContextTraceService(opts ...option.RequestOption) (r V1ContextTraceSer
 	return
 }
 
-// Retrieves a list of traces for the authenticated user
-func (r *V1ContextTraceService) List(ctx context.Context, opts ...option.RequestOption) (res *V1ContextTraceListResponse, err error) {
+// Returns paginated traces for the authenticated user within their organization.
+func (r *V1ContextTraceService) List(ctx context.Context, query V1ContextTraceListParams, opts ...option.RequestOption) (res *V1ContextTraceListResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "api/v1/context/traces"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
-// Deletes a data trace for the authenticated user with the specified trace ID
+// Deletes a data trace for the authenticated user with the specified trace ID.
 func (r *V1ContextTraceService) Delete(ctx context.Context, traceID string, opts ...option.RequestOption) (res *V1ContextTraceDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if traceID == "" {
@@ -56,9 +59,11 @@ func (r *V1ContextTraceService) Delete(ctx context.Context, traceID string, opts
 }
 
 type V1ContextTraceListResponse struct {
-	Traces []V1ContextTraceListResponseTrace `json:"traces"`
+	Pagination V1ContextTraceListResponsePagination `json:"pagination,required"`
+	Traces     []V1ContextTraceListResponseTrace    `json:"traces,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
+		Pagination  respjson.Field
 		Traces      respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
@@ -71,23 +76,51 @@ func (r *V1ContextTraceListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type V1ContextTraceListResponseTrace struct {
-	ID        string    `json:"_id"`
-	CreatedAt time.Time `json:"createdAt" format:"date-time"`
-	Data      any       `json:"data"`
-	Type      string    `json:"type"`
-	UpdatedAt time.Time `json:"updatedAt" format:"date-time"`
-	UserID    string    `json:"userId"`
+type V1ContextTraceListResponsePagination struct {
+	HasNextPage bool  `json:"hasNextPage,required"`
+	HasPrevPage bool  `json:"hasPrevPage,required"`
+	Limit       int64 `json:"limit,required"`
+	Page        int64 `json:"page,required"`
+	Total       int64 `json:"total,required"`
+	TotalPages  int64 `json:"totalPages,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          respjson.Field
-		CreatedAt   respjson.Field
-		Data        respjson.Field
-		Type        respjson.Field
-		UpdatedAt   respjson.Field
-		UserID      respjson.Field
+		HasNextPage respjson.Field
+		HasPrevPage respjson.Field
+		Limit       respjson.Field
+		Page        respjson.Field
+		Total       respjson.Field
+		TotalPages  respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextTraceListResponsePagination) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextTraceListResponsePagination) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type V1ContextTraceListResponseTrace struct {
+	ID             string    `json:"_id,required"`
+	CreatedAt      time.Time `json:"createdAt,required" format:"date-time"`
+	Data           any       `json:"data,required"`
+	OrganizationID string    `json:"organizationId,required"`
+	Type           string    `json:"type,required"`
+	UpdatedAt      time.Time `json:"updatedAt,required" format:"date-time"`
+	UserID         string    `json:"userId,required"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID             respjson.Field
+		CreatedAt      respjson.Field
+		Data           respjson.Field
+		OrganizationID respjson.Field
+		Type           respjson.Field
+		UpdatedAt      respjson.Field
+		UserID         respjson.Field
+		ExtraFields    map[string]respjson.Field
+		raw            string
 	} `json:"-"`
 }
 
@@ -99,7 +132,7 @@ func (r *V1ContextTraceListResponseTrace) UnmarshalJSON(data []byte) error {
 
 type V1ContextTraceDeleteResponse struct {
 	// The deleted trace data
-	Trace any `json:"trace"`
+	Trace V1ContextTraceDeleteResponseTrace `json:"trace,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Trace       respjson.Field
@@ -112,4 +145,70 @@ type V1ContextTraceDeleteResponse struct {
 func (r V1ContextTraceDeleteResponse) RawJSON() string { return r.JSON.raw }
 func (r *V1ContextTraceDeleteResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+// The deleted trace data
+type V1ContextTraceDeleteResponseTrace struct {
+	ID             string                                `json:"_id"`
+	CreatedAt      time.Time                             `json:"createdAt" format:"date-time"`
+	Data           V1ContextTraceDeleteResponseTraceData `json:"data"`
+	OrganizationID string                                `json:"organizationId"`
+	Type           string                                `json:"type"`
+	UpdatedAt      time.Time                             `json:"updatedAt" format:"date-time"`
+	UserID         string                                `json:"userId"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ID             respjson.Field
+		CreatedAt      respjson.Field
+		Data           respjson.Field
+		OrganizationID respjson.Field
+		Type           respjson.Field
+		UpdatedAt      respjson.Field
+		UserID         respjson.Field
+		ExtraFields    map[string]respjson.Field
+		raw            string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextTraceDeleteResponseTrace) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextTraceDeleteResponseTrace) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type V1ContextTraceDeleteResponseTraceData struct {
+	FileName string `json:"fileName"`
+	Query    string `json:"query"`
+	Source   string `json:"source"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		FileName    respjson.Field
+		Query       respjson.Field
+		Source      respjson.Field
+		ExtraFields map[string]respjson.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextTraceDeleteResponseTraceData) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextTraceDeleteResponseTraceData) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type V1ContextTraceListParams struct {
+	// Number of traces per page
+	Limit param.Opt[int64] `query:"limit,omitzero" json:"-"`
+	// Page number for pagination
+	Page param.Opt[int64] `query:"page,omitzero" json:"-"`
+	paramObj
+}
+
+// URLQuery serializes [V1ContextTraceListParams]'s query parameters as
+// `url.Values`.
+func (r V1ContextTraceListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
 }

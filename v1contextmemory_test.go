@@ -13,7 +13,7 @@ import (
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 )
 
-func TestV1ContextMemoryUpdateWithOptionalParams(t *testing.T) {
+func TestV1ContextMemoryUpdate(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,13 +26,25 @@ func TestV1ContextMemoryUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.V1.Context.Memory.Update(context.TODO(), alchemystai.V1ContextMemoryUpdateParams{
+	_, err := client.V1.Context.Memory.Update(context.TODO(), alchemystai.V1ContextMemoryUpdateParams{
 		Contents: []alchemystai.V1ContextMemoryUpdateParamsContent{{
-			Content: alchemystai.String("Customer asked about pricing for the Scale plan."),
+			ID:        alchemystai.String("msg-1"),
+			Content:   alchemystai.String("Customer asked about pricing for the Scale plan."),
+			CreatedAt: alchemystai.String("2025-01-10T12:34:56.000Z"),
+			Metadata: map[string]any{
+				"messageId": "bar",
+			},
+			Role: alchemystai.String("user"),
 		}, {
-			Content: alchemystai.String("Updated answer about the Scale plan pricing after discounts."),
+			ID:        alchemystai.String("msg-2"),
+			Content:   alchemystai.String("Updated answer about the Scale plan pricing after discounts."),
+			CreatedAt: alchemystai.String("2025-01-10T12:36:00.000Z"),
+			Metadata: map[string]any{
+				"messageId": "bar",
+			},
+			Role: alchemystai.String("assistant"),
 		}},
-		MemoryID: alchemystai.String("support-thread-TCK-1234"),
+		MemoryID: "support-thread-TCK-1234",
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
@@ -57,8 +69,10 @@ func TestV1ContextMemoryDeleteWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	err := client.V1.Context.Memory.Delete(context.TODO(), alchemystai.V1ContextMemoryDeleteParams{
-		MemoryID:       alchemystai.String("support-thread-TCK-1234"),
-		OrganizationID: alchemystai.String("organization_id"),
+		MemoryID:       "support-thread-TCK-1234",
+		OrganizationID: alchemystai.String("org_01HXYZABC"),
+		ByDoc:          alchemystai.Bool(true),
+		ByID:           alchemystai.Bool(false),
 		UserID:         alchemystai.String("user_id"),
 	})
 	if err != nil {
@@ -70,7 +84,7 @@ func TestV1ContextMemoryDeleteWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestV1ContextMemoryAddWithOptionalParams(t *testing.T) {
+func TestV1ContextMemoryAdd(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -83,13 +97,25 @@ func TestV1ContextMemoryAddWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.V1.Context.Memory.Add(context.TODO(), alchemystai.V1ContextMemoryAddParams{
+	_, err := client.V1.Context.Memory.Add(context.TODO(), alchemystai.V1ContextMemoryAddParams{
 		Contents: []alchemystai.V1ContextMemoryAddParamsContent{{
-			Content: alchemystai.String("Customer asked about pricing for the Scale plan."),
+			ID:        alchemystai.String("msg-1"),
+			Content:   alchemystai.String("Customer asked about pricing for the Scale plan."),
+			CreatedAt: alchemystai.String("2025-01-10T12:34:56.000Z"),
+			Metadata: map[string]any{
+				"messageId": "bar",
+			},
+			Role: alchemystai.String("user"),
 		}, {
-			Content: alchemystai.String("Explained the Scale plan pricing and shared the pricing page link."),
+			ID:        alchemystai.String("msg-2"),
+			Content:   alchemystai.String("Explained the Scale plan pricing and shared the pricing page link."),
+			CreatedAt: alchemystai.String("2025-01-10T12:35:30.000Z"),
+			Metadata: map[string]any{
+				"messageId": "bar",
+			},
+			Role: alchemystai.String("assistant"),
 		}},
-		MemoryID: alchemystai.String("support-thread-TCK-1234"),
+		MemoryID: "support-thread-TCK-1234",
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
