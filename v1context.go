@@ -252,7 +252,7 @@ type V1ContextSearchParams struct {
 	//   - metadata=false (or omitted) → metadata will be excluded from the response for
 	//     better performance.
 	//
-	// Any of "true", "false".
+	// Any of .
 	Metadata V1ContextSearchParamsMetadata `query:"metadata,omitzero" json:"-"`
 	// Controls the search mode:
 	//
@@ -293,11 +293,6 @@ func (r V1ContextSearchParams) URLQuery() (v url.Values, err error) {
 //   - metadata=false (or omitted) → metadata will be excluded from the response for
 //     better performance.
 type V1ContextSearchParamsMetadata string
-
-const (
-	V1ContextSearchParamsMetadataTrue  V1ContextSearchParamsMetadata = "true"
-	V1ContextSearchParamsMetadataFalse V1ContextSearchParamsMetadata = "false"
-)
 
 // Controls the search mode:
 //
