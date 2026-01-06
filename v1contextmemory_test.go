@@ -84,7 +84,7 @@ func TestV1ContextMemoryDeleteWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestV1ContextMemoryAddWithOptionalParams(t *testing.T) {
+func TestV1ContextMemoryAdd(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -99,20 +99,23 @@ func TestV1ContextMemoryAddWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.V1.Context.Memory.Add(context.TODO(), alchemystai.V1ContextMemoryAddParams{
 		Contents: []alchemystai.V1ContextMemoryAddParamsContent{{
-			Content: "Customer asked about pricing for the Scale plan.",
-			Metadata: alchemystai.V1ContextMemoryAddParamsContentMetadata{
-				MessageID: "msg-1",
+			ID:        alchemystai.String("msg-1"),
+			Content:   alchemystai.String("Customer asked about pricing for the Scale plan."),
+			CreatedAt: alchemystai.String("2025-01-10T12:34:56.000Z"),
+			Metadata: map[string]any{
+				"messageId": "bar",
 			},
+			Role: alchemystai.String("user"),
 		}, {
-			Content: "Explained the Scale plan pricing and shared the pricing page link.",
-			Metadata: alchemystai.V1ContextMemoryAddParamsContentMetadata{
-				MessageID: "msg-2",
+			ID:        alchemystai.String("msg-2"),
+			Content:   alchemystai.String("Explained the Scale plan pricing and shared the pricing page link."),
+			CreatedAt: alchemystai.String("2025-01-10T12:35:30.000Z"),
+			Metadata: map[string]any{
+				"messageId": "bar",
 			},
+			Role: alchemystai.String("assistant"),
 		}},
 		MemoryID: "support-thread-TCK-1234",
-		Metadata: alchemystai.V1ContextMemoryAddParamsMetadata{
-			GroupName: []string{"support", "pricing"},
-		},
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
