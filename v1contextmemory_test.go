@@ -83,3 +83,37 @@ func TestV1ContextMemoryDeleteWithOptionalParams(t *testing.T) {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
 }
+
+func TestV1ContextMemoryAddWithOptionalParams(t *testing.T) {
+	t.Skip("Prism tests are disabled")
+	baseURL := "http://localhost:4010"
+	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
+		baseURL = envURL
+	}
+	if !testutil.CheckTestServer(t, baseURL) {
+		return
+	}
+	client := alchemystai.NewClient(
+		option.WithBaseURL(baseURL),
+		option.WithAPIKey("My API Key"),
+	)
+	_, err := client.V1.Context.Memory.Add(context.TODO(), alchemystai.V1ContextMemoryAddParams{
+		Contents: []alchemystai.V1ContextMemoryAddParamsContent{{
+			Content: "Customer asked about pricing for the Scale plan.",
+			Metadata: alchemystai.V1ContextMemoryAddParamsContentMetadata{
+				MessageID: alchemystai.String("messageId"),
+			},
+		}},
+		MemoryID: "support-thread-TCK-1234",
+		Metadata: alchemystai.V1ContextMemoryAddParamsMetadata{
+			GroupName: []string{"string"},
+		},
+	})
+	if err != nil {
+		var apierr *alchemystai.Error
+		if errors.As(err, &apierr) {
+			t.Log(string(apierr.DumpRequest(true)))
+		}
+		t.Fatalf("err should be nil: %s", err.Error())
+	}
+}
