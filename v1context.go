@@ -24,10 +24,11 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewV1ContextService] method instead.
 type V1ContextService struct {
-	Options []option.RequestOption
-	Traces  V1ContextTraceService
-	View    V1ContextViewService
-	Memory  V1ContextMemoryService
+	Options  []option.RequestOption
+	Traces   V1ContextTraceService
+	View     V1ContextViewService
+	Memory   V1ContextMemoryService
+	AddAsync V1ContextAddAsyncService
 }
 
 // NewV1ContextService generates a new service that applies the given options to
@@ -39,6 +40,7 @@ func NewV1ContextService(opts ...option.RequestOption) (r V1ContextService) {
 	r.Traces = NewV1ContextTraceService(opts...)
 	r.View = NewV1ContextViewService(opts...)
 	r.Memory = NewV1ContextMemoryService(opts...)
+	r.AddAsync = NewV1ContextAddAsyncService(opts...)
 	return
 }
 

@@ -6,7 +6,7 @@
 
 <!-- x-release-please-end -->
 
-The Alchemyst AI Go library provides convenient access to the [Alchemyst AI REST API](https://docs.getalchemystai.com)
+The Alchemyst AI Go library provides convenient access to the [Alchemyst AI REST API](https://getalchemystai.com/docs)
 from applications written in Go.
 
 It is generated with [Stainless](https://www.stainless.com/).

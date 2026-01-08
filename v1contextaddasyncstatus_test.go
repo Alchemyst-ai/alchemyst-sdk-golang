@@ -13,7 +13,7 @@ import (
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 )
 
-func TestV1ContextMemoryUpdate(t *testing.T) {
+func TestV1ContextAddAsyncStatusGet(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,26 +26,7 @@ func TestV1ContextMemoryUpdate(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.V1.Context.Memory.Update(context.TODO(), alchemystai.V1ContextMemoryUpdateParams{
-		Contents: []alchemystai.V1ContextMemoryUpdateParamsContent{{
-			ID:        alchemystai.String("msg-1"),
-			Content:   alchemystai.String("Customer asked about pricing for the Scale plan."),
-			CreatedAt: alchemystai.String("2025-01-10T12:34:56.000Z"),
-			Metadata: map[string]any{
-				"messageId": "bar",
-			},
-			Role: alchemystai.String("user"),
-		}, {
-			ID:        alchemystai.String("msg-2"),
-			Content:   alchemystai.String("Updated answer about the Scale plan pricing after discounts."),
-			CreatedAt: alchemystai.String("2025-01-10T12:36:00.000Z"),
-			Metadata: map[string]any{
-				"messageId": "bar",
-			},
-			Role: alchemystai.String("assistant"),
-		}},
-		MemoryID: "support-thread-TCK-1234",
-	})
+	_, err := client.V1.Context.AddAsync.Status.Get(context.TODO(), "id")
 	if err != nil {
 		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {
@@ -55,7 +36,7 @@ func TestV1ContextMemoryUpdate(t *testing.T) {
 	}
 }
 
-func TestV1ContextMemoryDeleteWithOptionalParams(t *testing.T) {
+func TestV1ContextAddAsyncStatusListWithOptionalParams(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -68,12 +49,10 @@ func TestV1ContextMemoryDeleteWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	err := client.V1.Context.Memory.Delete(context.TODO(), alchemystai.V1ContextMemoryDeleteParams{
-		MemoryID:       "support-thread-TCK-1234",
-		OrganizationID: alchemystai.String("org_01HXYZABC"),
-		ByDoc:          alchemystai.Bool(true),
-		ByID:           alchemystai.Bool(false),
-		UserID:         alchemystai.String("user_id"),
+	_, err := client.V1.Context.AddAsync.Status.List(context.TODO(), alchemystai.V1ContextAddAsyncStatusListParams{
+		Limit:  alchemystai.String("limit"),
+		Offset: alchemystai.String("offset"),
+		Type:   alchemystai.V1ContextAddAsyncStatusListParamsTypeAll,
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
