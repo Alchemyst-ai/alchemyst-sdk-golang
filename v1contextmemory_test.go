@@ -104,7 +104,7 @@ func TestV1ContextMemoryAddWithOptionalParams(t *testing.T) {
 				MessageID: alchemystai.String("messageId"),
 			},
 		}},
-		MemoryID: "support-thread-TCK-1234",
+		SessionID: "support-thread-TCK-1234",
 		Metadata: alchemystai.V1ContextMemoryAddParamsMetadata{
 			GroupName: []string{"string"},
 		},
