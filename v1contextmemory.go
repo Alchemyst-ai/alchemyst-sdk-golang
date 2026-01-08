@@ -162,9 +162,10 @@ type V1ContextMemoryAddParams struct {
 	// Array of content objects. Each object must contain at least the 'content' field.
 	// Additional properties are allowed.
 	Contents []V1ContextMemoryAddParamsContent `json:"contents,omitzero,required"`
-	// The ID of the memory
-	MemoryID string `json:"memoryId,required"`
-	// Optional metadata for the memory context. Defaults to ["default"]
+	// The ID of the session
+	SessionID string `json:"sessionId,required"`
+	// Optional metadata for the memory context. Defaults to ["default"] if not
+	// provided.
 	Metadata V1ContextMemoryAddParamsMetadata `json:"metadata,omitzero"`
 	paramObj
 }
@@ -198,20 +199,20 @@ func (r *V1ContextMemoryAddParamsContent) UnmarshalJSON(data []byte) error {
 // Additional metadata for the message (optional)
 type V1ContextMemoryAddParamsContentMetadata struct {
 	// Unique message ID
-	MessageID   param.Opt[string] `json:"messageId,omitzero"`
-	ExtraFields map[string]any    `json:"-"`
+	MessageID param.Opt[string] `json:"messageId,omitzero"`
 	paramObj
 }
 
 func (r V1ContextMemoryAddParamsContentMetadata) MarshalJSON() (data []byte, err error) {
 	type shadow V1ContextMemoryAddParamsContentMetadata
-	return param.MarshalWithExtras(r, (*shadow)(&r), r.ExtraFields)
+	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *V1ContextMemoryAddParamsContentMetadata) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Optional metadata for the memory context. Defaults to ["default"]
+// Optional metadata for the memory context. Defaults to ["default"] if not
+// provided.
 type V1ContextMemoryAddParamsMetadata struct {
 	// Optional group names for the memory context. Defaults to ["default"] if not
 	// provided.
