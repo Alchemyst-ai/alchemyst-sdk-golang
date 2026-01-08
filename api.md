@@ -43,11 +43,13 @@ Methods:
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang">alchemystai</a>.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryUpdateResponse">V1ContextMemoryUpdateResponse</a>
+- <a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang">alchemystai</a>.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryAddResponse">V1ContextMemoryAddResponse</a>
 
 Methods:
 
 - <code title="post /api/v1/context/memory/update">client.V1.Context.Memory.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryService.Update">Update</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang">alchemystai</a>.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryUpdateParams">V1ContextMemoryUpdateParams</a>) (<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang">alchemystai</a>.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryUpdateResponse">V1ContextMemoryUpdateResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="post /api/v1/context/memory/delete">client.V1.Context.Memory.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang">alchemystai</a>.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryDeleteParams">V1ContextMemoryDeleteParams</a>) <a href="https://pkg.go.dev/builtin#error">error</a></code>
+- <code title="post /api/v1/context/memory/add">client.V1.Context.Memory.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryService.Add">Add</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang">alchemystai</a>.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryAddParams">V1ContextMemoryAddParams</a>) (<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang">alchemystai</a>.<a href="https://pkg.go.dev/github.com/Alchemyst-ai/alchemyst-sdk-golang#V1ContextMemoryAddResponse">V1ContextMemoryAddResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 ### AddAsync
 
