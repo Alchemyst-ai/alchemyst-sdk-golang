@@ -44,7 +44,7 @@ func TestV1ContextMemoryUpdate(t *testing.T) {
 			},
 			Role: alchemystai.String("assistant"),
 		}},
-		MemoryID: "support-thread-TCK-1234",
+		SessionID: "support-thread-TCK-1234",
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
