@@ -102,7 +102,7 @@ type V1ContextMemoryUpdateParams struct {
 	// Array of updated content objects
 	Contents []V1ContextMemoryUpdateParamsContent `json:"contents,omitzero,required"`
 	// The ID of the memory to update
-	MemoryID string `json:"memoryId,required"`
+	SessionID string `json:"sessionId,required"`
 	paramObj
 }
 
