@@ -13,7 +13,7 @@ import (
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 )
 
-func TestV1ContextTraceList(t *testing.T) {
+func TestV1ContextTraceListWithOptionalParams(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,7 +26,10 @@ func TestV1ContextTraceList(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.V1.Context.Traces.List(context.TODO())
+	_, err := client.V1.Context.Traces.List(context.TODO(), alchemystai.V1ContextTraceListParams{
+		Limit: alchemystai.Int(0),
+		Page:  alchemystai.Int(0),
+	})
 	if err != nil {
 		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {

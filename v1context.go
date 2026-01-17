@@ -24,10 +24,11 @@ import (
 // automatically. You should not instantiate this service directly, and instead use
 // the [NewV1ContextService] method instead.
 type V1ContextService struct {
-	Options []option.RequestOption
-	Traces  V1ContextTraceService
-	View    V1ContextViewService
-	Memory  V1ContextMemoryService
+	Options  []option.RequestOption
+	Traces   V1ContextTraceService
+	View     V1ContextViewService
+	Memory   V1ContextMemoryService
+	AddAsync V1ContextAddAsyncService
 }
 
 // NewV1ContextService generates a new service that applies the given options to
@@ -39,10 +40,12 @@ func NewV1ContextService(opts ...option.RequestOption) (r V1ContextService) {
 	r.Traces = NewV1ContextTraceService(opts...)
 	r.View = NewV1ContextViewService(opts...)
 	r.Memory = NewV1ContextMemoryService(opts...)
+	r.AddAsync = NewV1ContextAddAsyncService(opts...)
 	return
 }
 
-// Deletes context data based on provided parameters
+// This endpoint deletes context data based on the provided parameters. It returns
+// a success or error response depending on the result from the context processor.
 func (r *V1ContextService) Delete(ctx context.Context, body V1ContextDeleteParams, opts ...option.RequestOption) (res *V1ContextDeleteResponse, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "api/v1/context/delete"
@@ -71,7 +74,25 @@ func (r *V1ContextService) Search(ctx context.Context, params V1ContextSearchPar
 
 type V1ContextDeleteResponse = any
 
-type V1ContextAddResponse = any
+type V1ContextAddResponse struct {
+	ContextID          string  `json:"context_id,required"`
+	Success            bool    `json:"success,required"`
+	ProcessedDocuments float64 `json:"processed_documents"`
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
+	JSON struct {
+		ContextID          respjson.Field
+		Success            respjson.Field
+		ProcessedDocuments respjson.Field
+		ExtraFields        map[string]respjson.Field
+		raw                string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r V1ContextAddResponse) RawJSON() string { return r.JSON.raw }
+func (r *V1ContextAddResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
 
 type V1ContextSearchResponse struct {
 	Contexts []V1ContextSearchResponseContext `json:"contexts"`
@@ -115,16 +136,16 @@ func (r *V1ContextSearchResponseContext) UnmarshalJSON(data []byte) error {
 }
 
 type V1ContextDeleteParams struct {
+	// Organization ID
+	OrganizationID string `json:"organization_id,required"`
+	// Source identifier for the context
+	Source string `json:"source,required"`
 	// Flag to delete by document
 	ByDoc param.Opt[bool] `json:"by_doc,omitzero"`
 	// Flag to delete by ID
 	ByID param.Opt[bool] `json:"by_id,omitzero"`
-	// Optional organization ID
-	OrganizationID param.Opt[string] `json:"organization_id,omitzero"`
 	// Optional user ID
 	UserID param.Opt[string] `json:"user_id,omitzero"`
-	// Source identifier for the context
-	Source param.Opt[string] `json:"source,omitzero"`
 	paramObj
 }
 
@@ -137,20 +158,20 @@ func (r *V1ContextDeleteParams) UnmarshalJSON(data []byte) error {
 }
 
 type V1ContextAddParams struct {
-	// The source of the context data
-	Source param.Opt[string] `json:"source,omitzero"`
 	// Type of context being added
 	//
 	// Any of "resource", "conversation", "instruction".
-	ContextType V1ContextAddParamsContextType `json:"context_type,omitzero"`
+	ContextType V1ContextAddParamsContextType `json:"context_type,omitzero,required"`
 	// Array of documents with content and additional metadata
-	Documents []V1ContextAddParamsDocument `json:"documents,omitzero"`
-	// Additional metadata for the context
-	Metadata V1ContextAddParamsMetadata `json:"metadata,omitzero"`
+	Documents []V1ContextAddParamsDocument `json:"documents,omitzero,required"`
 	// Scope of the context
 	//
 	// Any of "internal", "external".
-	Scope V1ContextAddParamsScope `json:"scope,omitzero"`
+	Scope V1ContextAddParamsScope `json:"scope,omitzero,required"`
+	// The source of the context data
+	Source string `json:"source,required"`
+	// Additional metadata for the context
+	Metadata V1ContextAddParamsMetadata `json:"metadata,omitzero"`
 	paramObj
 }
 
@@ -186,6 +207,14 @@ func (r *V1ContextAddParamsDocument) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// Scope of the context
+type V1ContextAddParamsScope string
+
+const (
+	V1ContextAddParamsScopeInternal V1ContextAddParamsScope = "internal"
+	V1ContextAddParamsScopeExternal V1ContextAddParamsScope = "external"
+)
+
 // Additional metadata for the context
 type V1ContextAddParamsMetadata struct {
 	// Name of the file
@@ -209,14 +238,6 @@ func (r *V1ContextAddParamsMetadata) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// Scope of the context
-type V1ContextAddParamsScope string
-
-const (
-	V1ContextAddParamsScopeInternal V1ContextAddParamsScope = "internal"
-	V1ContextAddParamsScopeExternal V1ContextAddParamsScope = "external"
-)
-
 type V1ContextSearchParams struct {
 	// Minimum similarity threshold
 	MinimumSimilarityThreshold float64 `json:"minimum_similarity_threshold,required"`
@@ -234,7 +255,7 @@ type V1ContextSearchParams struct {
 	//     better performance.
 	//
 	// Any of "true", "false".
-	QueryMetadata V1ContextSearchParamsMetadata `query:"metadata,omitzero" json:"-"`
+	Metadata V1ContextSearchParamsMetadata `query:"metadata,omitzero" json:"-"`
 	// Controls the search mode:
 	//
 	// - mode=fast → prioritizes speed over completeness.
@@ -243,7 +264,7 @@ type V1ContextSearchParams struct {
 	// Any of "fast", "standard".
 	Mode V1ContextSearchParamsMode `query:"mode,omitzero" json:"-"`
 	// Additional metadata for the search
-	BodyMetadata any `json:"metadata,omitzero"`
+	BodyMetadata any `json:"body_metadata,omitzero"`
 	// Search scope
 	//
 	// Any of "internal", "external".
