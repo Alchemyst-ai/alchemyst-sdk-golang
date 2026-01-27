@@ -13,7 +13,7 @@ import (
 	"github.com/Alchemyst-ai/alchemyst-sdk-golang/option"
 )
 
-func TestV1ContextViewGetWithOptionalParams(t *testing.T) {
+func TestV1ContextAddAsyncStatusGet(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -26,10 +26,7 @@ func TestV1ContextViewGetWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.V1.Context.View.Get(context.TODO(), alchemystai.V1ContextViewGetParams{
-		FileName: alchemystai.String("file_name"),
-		MagicKey: alchemystai.String("magic_key"),
-	})
+	_, err := client.V1.Context.AddAsync.Status.Get(context.TODO(), "id")
 	if err != nil {
 		var apierr *alchemystai.Error
 		if errors.As(err, &apierr) {
@@ -39,7 +36,7 @@ func TestV1ContextViewGetWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestV1ContextViewDocsWithOptionalParams(t *testing.T) {
+func TestV1ContextAddAsyncStatusListWithOptionalParams(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -52,8 +49,10 @@ func TestV1ContextViewDocsWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.V1.Context.View.Docs(context.TODO(), alchemystai.V1ContextViewDocsParams{
-		MagicKey: alchemystai.String("magic_key"),
+	_, err := client.V1.Context.AddAsync.Status.List(context.TODO(), alchemystai.V1ContextAddAsyncStatusListParams{
+		Limit:  alchemystai.String("limit"),
+		Offset: alchemystai.String("offset"),
+		Type:   alchemystai.V1ContextAddAsyncStatusListParamsTypeAll,
 	})
 	if err != nil {
 		var apierr *alchemystai.Error

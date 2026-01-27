@@ -6,7 +6,7 @@
 
 <!-- x-release-please-end -->
 
-The Alchemyst AI Go library provides convenient access to the [Alchemyst AI REST API](https://docs.getalchemystai.com)
+The Alchemyst AI Go library provides convenient access to the [Alchemyst AI REST API](https://getalchemystai.com/docs)
 from applications written in Go.
 
 It is generated with [Stainless](https://www.stainless.com/).
@@ -28,7 +28,7 @@ Or to pin the version:
 <!-- x-release-please-start-version -->
 
 ```sh
-go get -u 'github.com/Alchemyst-ai/alchemyst-sdk-golang@v0.4.0'
+go get -u 'github.com/Alchemyst-ai/alchemyst-sdk-golang@v0.5.0'
 ```
 
 <!-- x-release-please-end -->
@@ -61,19 +61,19 @@ func main() {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	})
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", response)
+	fmt.Printf("%+v\n", response.ContextID)
 }
 
 ```
@@ -315,14 +315,14 @@ _, err := client.V1.Context.Add(context.TODO(), alchemystai.V1ContextAddParams{
 	Documents: []alchemystai.V1ContextAddParamsDocument{{
 		Content: alchemystai.String("The content of the document"),
 	}},
+	Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+	Source: "platform.api.context.add",
 	Metadata: alchemystai.V1ContextAddParamsMetadata{
 		FileName:     alchemystai.String("notes.txt"),
 		FileType:     alchemystai.String("text/plain"),
 		LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 		FileSize:     alchemystai.Float(1024),
 	},
-	Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-	Source: alchemystai.String("platform.api.context.add"),
 })
 if err != nil {
 	var apierr *alchemystai.Error
@@ -355,14 +355,14 @@ client.V1.Context.Add(
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	},
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
@@ -404,14 +404,14 @@ client.V1.Context.Add(
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	},
 	option.WithMaxRetries(5),
 )
@@ -432,14 +432,14 @@ response, err := client.V1.Context.Add(
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("The content of the document"),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "platform.api.context.add",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("notes.txt"),
 			FileType:     alchemystai.String("text/plain"),
 			LastModified: alchemystai.String("2025-10-01T18:42:40.419Z"),
 			FileSize:     alchemystai.Float(1024),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("platform.api.context.add"),
 	},
 	option.WithResponseInto(&response),
 )
