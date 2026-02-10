@@ -27,10 +27,10 @@ func TestV1ContextDeleteWithOptionalParams(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.V1.Context.Delete(context.TODO(), alchemystai.V1ContextDeleteParams{
+		OrganizationID: "org_01HXYZABC",
+		Source:         "support-inbox",
 		ByDoc:          alchemystai.Bool(true),
 		ByID:           alchemystai.Bool(false),
-		OrganizationID: alchemystai.String("organization_id"),
-		Source:         alchemystai.String("support-inbox"),
 		UserID:         alchemystai.String("user_id"),
 	})
 	if err != nil {
@@ -60,6 +60,8 @@ func TestV1ContextAddWithOptionalParams(t *testing.T) {
 		Documents: []alchemystai.V1ContextAddParamsDocument{{
 			Content: alchemystai.String("Customer asked about pricing for the Scale plan."),
 		}},
+		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
+		Source: "support-inbox",
 		Metadata: alchemystai.V1ContextAddParamsMetadata{
 			FileName:     alchemystai.String("support_thread_TCK-1234.txt"),
 			FileSize:     alchemystai.Float(2048),
@@ -67,8 +69,6 @@ func TestV1ContextAddWithOptionalParams(t *testing.T) {
 			GroupName:    []string{"support", "pricing"},
 			LastModified: alchemystai.String("2025-01-10T12:34:56.000Z"),
 		},
-		Scope:  alchemystai.V1ContextAddParamsScopeInternal,
-		Source: alchemystai.String("support-inbox"),
 	})
 	if err != nil {
 		var apierr *alchemystai.Error
@@ -96,7 +96,7 @@ func TestV1ContextSearchWithOptionalParams(t *testing.T) {
 		MinimumSimilarityThreshold: 0.5,
 		Query:                      "What did the customer ask about pricing for the Scale plan?",
 		SimilarityThreshold:        0.8,
-		QueryMetadata:              alchemystai.V1ContextSearchParamsMetadataTrue,
+		Metadata:                   alchemystai.V1ContextSearchParamsMetadataTrue,
 		Mode:                       alchemystai.V1ContextSearchParamsModeFast,
 		BodyMetadata:               map[string]any{},
 		Scope:                      alchemystai.V1ContextSearchParamsScopeInternal,
